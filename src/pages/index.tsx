@@ -1,9 +1,44 @@
 import Head from "next/head";
 import Link from "next/link";
+import flagsmith from 'flagsmith/isomorphic';
+import { useFlags, useFlagsmith } from 'flagsmith/react';
 
 import { api } from "~/utils/api";
+import { useEffect, useState } from "react";
+import type { IState } from "flagsmith/types";
+
+// const flagger = async () => {
+//   await flagsmith.init({
+//       environmentID: "b7eQEfGPnUcLQRuanVsKRJ",
+//       api: "https://flagsmith.lostworlds.xyz/api/v1/"
+//   });
+
+//   return flagsmith.getState();
+// }
 
 export default function Home() {
+
+  //   const [flags, setFlags] = useState<IState<string, string> | null>(null);
+
+  //   useEffect(() => {
+  //     (async () => {
+  //         const state = await flagger();
+  //         setFlags(state);
+  //     })().catch(error => {
+  //         console.error("Error fetching flagsmith state:", error);
+  //     });
+  // }, []);
+
+  //   // When flags are loaded
+  //   if (flags) {
+  //       console.log("flags", flags?.flags?.test_feat_1);
+  //   }
+
+  const flags = useFlags(["test_feat_1", "test_feat_2"]);
+  const test_feat_1 = flags.test_feat_1
+  const test_feat_2 = flags.test_feat_2
+  console.log("test_feat_1", test_feat_1);
+
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
 
   return (
@@ -14,37 +49,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
+        <div className="flex flex-col gap-10 text-white text-5xl">
+          <div className="text-7xl">Status</div>
+          <div>
+            <div >Test Feature 1</div>
+            <div className="text-3xl">Status | isOn: <span className="uppercase">{`${test_feat_1.enabled}`}</span></div>
           </div>
-          <p className="text-2xl text-white">
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-          </p>
+          <div>
+            <div >Test Feature 2</div>
+            <div className="text-3xl">Status | isOn: <span className="uppercase">{`${test_feat_2.enabled}`}</span></div>
+          </div>
         </div>
       </main>
     </>
