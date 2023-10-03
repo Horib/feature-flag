@@ -1,38 +1,10 @@
 import Head from "next/head";
-import Link from "next/link";
 import flagsmith from 'flagsmith/isomorphic';
 import { useFlags, useFlagsmith } from 'flagsmith/react';
 
 import { api } from "~/utils/api";
-import { useEffect, useState } from "react";
-import type { IState } from "flagsmith/types";
-
-// const flagger = async () => {
-//   await flagsmith.init({
-//       environmentID: "b7eQEfGPnUcLQRuanVsKRJ",
-//       api: "https://flagsmith.lostworlds.xyz/api/v1/"
-//   });
-
-//   return flagsmith.getState();
-// }
 
 export default function Home() {
-
-  //   const [flags, setFlags] = useState<IState<string, string> | null>(null);
-
-  //   useEffect(() => {
-  //     (async () => {
-  //         const state = await flagger();
-  //         setFlags(state);
-  //     })().catch(error => {
-  //         console.error("Error fetching flagsmith state:", error);
-  //     });
-  // }, []);
-
-  //   // When flags are loaded
-  //   if (flags) {
-  //       console.log("flags", flags?.flags?.test_feat_1);
-  //   }
 
   const flags = useFlags(["test_feat_1", "test_feat_2"]);
   const test_feat_1 = flags.test_feat_1
