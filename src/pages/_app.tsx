@@ -12,11 +12,10 @@ type MyAppProps = AppPropsType & {
 };
 
 const MyApp = ({ Component, pageProps, flagsmithState }: MyAppProps) => {
-  // console.log("flagsmithState passed to FlagsmithProvider:", flagsmithState);
 
   return (
     <FlagsmithProvider flagsmith={flagsmith} serverState={flagsmithState} options={{
-      environmentID: 'b7eQEfGPnUcLQRuanVsKRJ', 
+      environmentID: 'b7eQEfGPnUcLQRuanVsKRJ',
       api: "https://flagsmith.lostworlds.xyz/api/v1/"
     }}>
       <Component {...pageProps} />
@@ -26,12 +25,11 @@ const MyApp = ({ Component, pageProps, flagsmithState }: MyAppProps) => {
 
 MyApp.getInitialProps = async () => {
   await flagsmith.init({
-    environmentID: 'b7eQEfGPnUcLQRuanVsKRJ', 
+    environmentID: 'b7eQEfGPnUcLQRuanVsKRJ',
     api: "https://flagsmith.lostworlds.xyz/api/v1/"
   });
 
   const state = flagsmith.getState();
-  // console.log("Flagsmith State:", state);
   return { flagsmithState: state };
 };
 
